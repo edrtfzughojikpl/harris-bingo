@@ -41,7 +41,6 @@ io.on('connection', (socket) => {
       fs.appendFileSync('completedBingos.txt', data+"\n");
       socket.broadcast.emit('chat message', JSON.parse(data).username);
     } else {
-      console.log(JSON.parse(data)  );
       fs.writeFileSync('bingo.json', data);
     }
   });
