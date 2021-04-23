@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-const port = process.env.PORT | 80;
+const port = process.env.PORT || 80;
 
 const Bingos = [
   'Harris gibt eine Information in den Funk',
