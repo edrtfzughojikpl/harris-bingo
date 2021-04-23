@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="../css/main.css">
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io();
+  </script>
+  <script src="../js/lyrii.js" defer></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container-header2 fixed-header">
+    <h1>Lyrii, hier deine Liste <span id="clicked">00/25</span></h1>
+    <button type="save" onclick="save()">save</button>
+    <button type="new" onclick="newBingo()">add New</button>
+  </div>
+  <table id="bingos">
+    <tr>
+      <th>Use Today?</th>
+      <th>Bingo-Content</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </table>
+</body>
+
+</html>

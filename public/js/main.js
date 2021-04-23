@@ -125,8 +125,18 @@ boxes.forEach(box => {
         setCookie("history", historyId);
     });
 });
+socket.on('message', (data) => {
+    var {
+      Bingos,
+      checkedBingos
+    } = JSON.parse(data);
+    bingos = [];
+    for (var i = 0; i < checkedBingos.length; i++){
+        bingos.push(Bingos[checkedBingos[i]]);
+    }
+    makeBingo();
+});
 
-makeBingo();
 
 function submit() {
     var username = prompt("Please enter your name", "");

@@ -37,9 +37,16 @@ const Bingos = [
 const fs = require('fs');
 io.on('connection', (socket) => {
   socket.on('message', (data) => {
-    fs.appendFileSync('completedBingos.txt', data+"\n");
-    socket.broadcast.emit('chat message', JSON.parse(data).username);
-  })
+    if(JSON.parse(data).username){
+      fs.appendFileSync('completedBingos.txt', data+"\n");
+      socket.broadcast.emit('chat message', JSON.parse(data).username);
+    } else {
+      console.log(JSON.parse(data)  );
+      fs.writeFileSync('bingo.json', data);
+    }
+  });
+  var Bingo = fs.readFileSync('bingo.json', 'utf8');
+  socket.send(Bingo);
 });
 
 app.use(express.static(__dirname + '/public'));
@@ -49,6 +56,10 @@ app.get('/', (req, res) => {
   res.render('pages/index', {
     Bingos: JSON.stringify(Bingos)
   });
+});
+
+app.get('/lyrii/bingo', (req, res) => {
+  res.render('pages/lyrii/bingo');
 });
 
 server.listen(port, () => {
