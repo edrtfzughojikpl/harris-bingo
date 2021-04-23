@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+    </script>
+    <script src="js/main.js" defer></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var bingos = '<%= Bingos %>'; //var test is now assigned to getTest which will only work on browsers
+        // bingos = bingos.split(',');
+    </script>
+    <div class="container-header">
+        <h1>Harris BINGO</h1>
+    </div>
+    <div class="notifications-container">
+        <!-- <div class="notify notify--type-1 notify--success">
+            <div class="notify-content">
+                <div class="notify__title">New Bingo Filled</div>
+                <div class="notify__text"><strong><em>Jo</em></strong><span style="margin-left: 5px;">just completed a Bingo!</span></div>
+            </div>
+        </div> -->
+    </div>
+    <div class="container-bingo">
+        <div class="bingo">
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item">Hier steht ein super super langer langer text den?</div>
+            <div class="bingo-item">Hier steht einfach ein langer text!</div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item">BINGO</div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+            <div class="bingo-item"></div>
+        </div>
+    </div>
+
+    <div class="container-button">
+        <button class="btn getNew" onclick="getNew()">get new Card</button>
+        <button class="btn reset" onclick="reset()">Reset</button>
+        <button class="btn undo" onclick="undoLast()">Undo last Step</button>
+        <button class="btn submit" onclick="submit()">Submit Bingo</button>
+    </div>
+
+</body>
+
+</html>
