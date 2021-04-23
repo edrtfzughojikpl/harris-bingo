@@ -130,6 +130,7 @@ makeBingo();
 
 function submit() {
     var username = prompt("Please enter your name", "");
+    if(username == "") return;
     getNew();
     socket.send(JSON.stringify({
         username,
