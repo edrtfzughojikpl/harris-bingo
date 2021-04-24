@@ -33,7 +33,8 @@ function updateTable() {
   editBtns.forEach(editBtn => {
     editBtn.addEventListener('click', e => {
       var text = prompt("Enter a Bingo Text", e.target.previousElementSibling.textContent);
-      if (text == "") return;
+      console.log(text);
+      if (text == "" || text == null) return;
       e.target.previousElementSibling.textContent = text;
     });
   });
