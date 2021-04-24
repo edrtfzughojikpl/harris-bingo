@@ -4,14 +4,14 @@ var decodeHtmlEntity = function (x) {
     });
 };
 
-bingos = JSON.parse(decodeHtmlEntity(bingos));
+// bingos = JSON.parse(decodeHtmlEntity(bingos));
 
 const boxes = document.querySelectorAll('.bingo-item');
 
 var historyItems = [];
 var historyId = [];
 
-// var bingos = [];
+var bingos = [];
 
 var bingoHash = [];
 
