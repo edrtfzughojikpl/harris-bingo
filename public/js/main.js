@@ -10,10 +10,9 @@ const boxes = document.querySelectorAll('.bingo-item');
 
 var historyItems = [];
 var historyId = [];
-
 var bingos = [];
-
 var bingoHash = [];
+let easter = false;
 
 const getFontSize = (textLength) => {
     const baseSize = 22;
@@ -47,7 +46,6 @@ function getNew() {
     bingoHash = [];
     makeBingo();
 }
-
 
 function getRandomBingo() {
     const roundNumber = Math.floor(Math.random() * (bingosCopy.length - 1) + 1);
@@ -118,13 +116,20 @@ function makeBingo() {
 
 boxes.forEach(box => {
     box.addEventListener('click', (e) => {
-        if (e.target.classList.contains('checked')) return;
-        e.target.classList.add('checked');
-        historyItems.push(e.target);
-        historyId.push(getElementIndex(e.target));
+        if (e.target.classList.contains('checked')) {
+            e.target.classList.remove('checked');
+            let elementToRemove = historyId.indexOf(getElementIndex(e.target));
+            historyId.splice(elementToRemove,1)
+        }
+        else {
+            e.target.classList.add('checked');
+            historyItems.push(e.target);
+            historyId.push(getElementIndex(e.target));
+        }
         setCookie("history", historyId);
     });
 });
+
 socket.on('message', (data) => {
     var {
       Bingos,
@@ -137,16 +142,25 @@ socket.on('message', (data) => {
     makeBingo();
 });
 
-
 function submit() {
     var username = prompt("Please enter your name", "");
     if(username == "") return;
-    getNew();
     socket.send(JSON.stringify({
         username,
         historyId,
         bingoHash
     }))
+}
+function changeFont(){
+    let htmlBody = document.getElementById("content");
+    if(easter) {
+        htmlBody.style.fontFamily= "'Ubuntu', sans-serif";
+        easter = false;
+    }
+    else {
+        htmlBody.style.fontFamily="Comic Sans MS";
+        easter = true;
+    }
 }
 
 function makeNot(username) {
