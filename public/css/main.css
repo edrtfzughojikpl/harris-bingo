@@ -4,11 +4,26 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Ubuntu', sans-serif;
 }
 
 body {
     background-color: #101010;
+    font-family: 'Ubuntu', sans-serif;
+    background-image: url("https://source.unsplash.com/collection/357644/");
+    backdrop-filter: brightness(75%) blur(10px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    height: 100vw;
+    width: 100%;
+}
+
+.container-header{
+    backdrop-filter: brightness(75%) blur(10px);
+    display: flex;
+    justify-content: center;
+    padding: 25px;
+    color: #ececec;
 }
 
 .notify {
@@ -31,7 +46,6 @@ body {
     width: 100%;
     position: relative;
     user-select: none;
-    position: relative;
     transition-timing-function: ease;
     box-sizing: border-box;
 }
@@ -70,12 +84,15 @@ body {
 }
 
 .container-bingo,
-.container-button,
-.container-header {
+.container-button {
     display: flex;
     justify-content: center;
     margin-top: 25px;
     color: #ececec;
+}
+
+.container-button > button {
+    margin: 5px;
 }
 
 .bingo {
@@ -124,35 +141,32 @@ body {
 
 button {
     font-weight: 800;
-    background: transparent;
     min-width: 100px;
     text-transform: uppercase;
     border-radius: 8px;
     font-size: 15px;
     display: inline-block;
     padding: 6px 14px;
-    margin: 10px 2px 0 0;
+    margin: 10px 5px 0 0;
     cursor: pointer;
     transition-duration: 0.1s;
     transition-timing-function: ease-in-out;
     color: #d3d3d3;
-    border: 2px solid #0091aa;
+    backdrop-filter: blur(1px);
+    background-color: #1a1a1a;
+    border: 2px solid #005463;
 }
 
 button:active {
     outline: none;
     border: 2px solid #0091aa;
-    background-color: #005463;
+    background-color: #0091aa;
 }
 
-button:focus {
+button:hover {
     outline: none;
     border: 2px solid #0091aa;
 }
-
-
-
-
 
 table {
     position: relative;
@@ -196,7 +210,6 @@ th {
     color: white;
 }
 
-
 .fixed-header {
     position: fixed;
     top: 0;
@@ -205,11 +218,11 @@ th {
     background-color: #101010;
     height: 75px;
 }
-
 .container-header2{
     text-align: center;
     color: #ececec;
 }
+
 button{
     margin: 0;
 }
