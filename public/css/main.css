@@ -26,6 +26,15 @@ body {
     color: #ececec;
 }
 
+.rules{
+    margin:20px;
+    padding: 30px;
+    color: #ececec;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+    backdrop-filter: opacity(50%);
+}
+
 .notify {
     --notify-error: #eb5757;
     --notify-success: #6fcf97;
