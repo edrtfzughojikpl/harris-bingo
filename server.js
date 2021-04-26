@@ -51,8 +51,12 @@ app.get('/', (req, res) => {
   res.render('pages/index');
 });
 
-app.get('/lyrii/bingo', (req, res) => {
-  res.render('pages/lyrii/bingo');
+app.get('/gamemaster/bingo', (req, res) => {
+  res.render('pages/gamemaster/bingo');
+});
+
+app.get('/gamemaster/suggestion', (req, res) => {
+  res.render('pages/gamemaster/suggestion');
 });
 
 server.listen(port, () => {
@@ -73,18 +77,6 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
   console.log('Database connected!');
-  // var data = {
-  //   "Bingos": ["Harris gibt eine Information in den Funk", "Beschwerde über PD-04", "DE- ESKALATION", "Mehr als 10 Streifen unterwegs", "Harris wird auf seinen Hut angesprochen", "Marshals verhalten sich fragwürdig", "Harris wird ignoriert", "Jemand fragt nach PD-Merch (Polizeiautos, Kluis, etc.)", "Reznikowa im Dienst", "Harris wechselt die Uniform", "Harris drückt einen Anrufer weg", "Harris auf Streife", "O'Hara erzählt von seiner Frau", "Denton ist nicht erreichbar", "Funk stört", "Jemand wird befördert", "Rekrut wird eingestellt", "Schlange vorm Büro (mind. 3 Personen)", "Dauerfunk", "N.O.O.S.E. (Blackout)", "10-43", "10-99", "Keith", "Hall", "Smith", "HelloWorld"],
-  //   "checkedBingos": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 24, 25]
-  // };
-
-  // data.Bingos.forEach(bingo => {
-  //   BingosDB.create({text: bingo});
-  // })
-
-  // data.checkedBingos.forEach(bingo => {
-  //   CheckedBingosDB.create({number: bingo});
-  // })
 });
 
 const BingosDB = mongoose.model('bingos', schemas.bingoSchema);
