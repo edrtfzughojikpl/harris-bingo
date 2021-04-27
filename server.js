@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 const http = require('http');
 const server = http.createServer(app);
@@ -45,6 +46,9 @@ io.on('connection', async (socket) => {
 });
 
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.raw());
 app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
@@ -58,6 +62,11 @@ app.get('/gamemaster/bingo', (req, res) => {
 app.get('/gamemaster/suggestion', (req, res) => {
   res.render('pages/gamemaster/suggestion');
 });
+
+app.post('/gamemaster/suggestion', (req, res) => {
+  console.log('Got body:', req.body);
+  res.sendStatus(200);
+})
 
 server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
