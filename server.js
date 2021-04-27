@@ -1,3 +1,9 @@
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Global constants
+ */
+
+const fs = require('fs');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
@@ -10,12 +16,17 @@ const io = new Server(server);
 
 const port = process.env.PORT || 80;
 
-const fs = require('fs');
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Socket.io functions
+ */
+
 io.on('connection', async (socket) => {
   socket.on('message', (data) => {
     if (JSON.parse(data).username) {
       fs.appendFileSync('completedBingos.txt', data + "\n");
-      socket.broadcast.emit('chat message', JSON.parse(data).username);
+      socket.broadcast.emit('submittedbingo', JSON.parse(data).username);
     } else {
       data = JSON.parse(data);
       BingosDB.deleteMany({}, (error) => {
@@ -41,12 +52,21 @@ io.on('connection', async (socket) => {
   checkedBingosD.forEach(checkedBingo => checkedBingos.push(checkedBingo.number));
   socket.send(JSON.stringify({
     Bingos,
-    checkedBingos
+    checkedBingos,
+    suggestions: await SuggestionsDB.find({})
   }));
 });
 
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Webserver functions
+ */
+
+
 app.use(express.static(__dirname + '/public'));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.set('view engine', 'ejs');
@@ -64,13 +84,23 @@ app.get('/gamemaster/suggestion', (req, res) => {
 });
 
 app.post('/gamemaster/suggestion', (req, res) => {
-  console.log('Got body:', req.body);
-  res.sendStatus(200);
+  if (req.body.suggestion == "" || req.body.name == "") return;
+  SuggestionsDB.create({
+    username: req.body.name,
+    text: req.body.suggestion
+  });
+  res.render('pages/gamemaster/suggestion');
 })
 
 server.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * MongoDB functions
+ */
+
 
 const mongoose = require('mongoose');
 const DB_ADMIN = "twitchDBAdmin";
@@ -90,3 +120,6 @@ db.once('open', function () {
 
 const BingosDB = mongoose.model('bingos', schemas.bingoSchema);
 const CheckedBingosDB = mongoose.model('checkedBingos', schemas.checkedBingosSchema);
+const SuggestionsDB = mongoose.model('suggestions', schemas.suggestionSchema);
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####

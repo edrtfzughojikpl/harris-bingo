@@ -1,8 +1,7 @@
-var decodeHtmlEntity = function (x) {
-  return x.replace(/&#(\d+);/g, function (match, dec) {
-    return String.fromCharCode(dec);
-  });
-};
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Global constants
+ */
 
 const BingoContainer = document.getElementById("bingos");
 const clickedItem = document.getElementById("clicked");
@@ -10,6 +9,34 @@ var inputs;
 var editBtns;
 var delteBtns;
 var checkedItems = 0;
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Socket.io functions
+ */
+
+socket.on('message', (data) => {
+  var {
+    Bingos,
+    checkedBingos,
+    suggestions
+  } = JSON.parse(data);
+  bingos = Bingos;
+  console.log(suggestions);
+
+  updateTable();
+  inputs = document.querySelectorAll("input[type='checkbox']");
+  for (var i = 0; i < checkedBingos.length; i++) {
+    inputs[checkedBingos[i]].checked = true;
+    checkedItems++;
+  }
+  clickedItem.textContent = `${(checkedItems<10)?"0"+checkedItems:checkedItems}/25`;
+});
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * Table functions
+ */
 
 function updateTable() {
   bingos.forEach(bingo => {
@@ -51,27 +78,11 @@ function updateTable() {
   });
 }
 
-socket.on('message', (data) => {
-  var {
-    Bingos,
-    checkedBingos
-  } = JSON.parse(data);
-  bingos = Bingos;
-
-  updateTable();
-  inputs = document.querySelectorAll("input[type='checkbox']");
-  for (var i = 0; i < checkedBingos.length; i++){
-    inputs[checkedBingos[i]].checked = true;
-    checkedItems++;
-  }
-  clickedItem.textContent = `${(checkedItems<10)?"0"+checkedItems:checkedItems}/25`;
-});
-
-
 function newBingo() {
   var text = prompt("Please enter a Bingo text", "");
   if (text == "") return;
   createTableRow(text);
+  updateTable();
 }
 
 function save() {
@@ -97,7 +108,10 @@ function save() {
   }))
 }
 
-
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * create new element in table
+ */
 
 function createTableRow(bingo) {
   var tr = document.createElement("tr");
@@ -120,3 +134,16 @@ function createTableRow(bingo) {
   tr.appendChild(deleteTd);
   BingoContainer.append(tr);
 }
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
+/**
+ * one time use functions
+ */
+
+var decodeHtmlEntity = function (x) {
+  return x.replace(/&#(\d+);/g, function (match, dec) {
+    return String.fromCharCode(dec);
+  });
+};
+
+// #####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####-#####
