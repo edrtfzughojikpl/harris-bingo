@@ -111,7 +111,7 @@ body {
     grid-template-columns: repeat(5, 100px);
     grid-template-rows: repeat(5, 100px);
     grid-auto-flow: column;
-    background-color: #851f1f;
+    background-color: #340606;
     border-radius: 5%;
 }
 
@@ -138,6 +138,7 @@ body {
     border-radius: 8px;
     /* cross thickness */
     background-color: rgb(205, 0, 0);
+    opacity: 35%;
 }
 
 .checked::before {
